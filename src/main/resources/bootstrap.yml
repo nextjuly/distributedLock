@@ -1,0 +1,15 @@
+spring:
+  redis:
+    database: 0
+    host: 192.168.173.39
+    password: redis173
+    pool:
+      connection-timeout: 5000
+      max-active: 10000
+      max-idle: 1000
+      max-total: 10000
+      max-wait: 5000
+      max-wait-millis: 100000
+      min-idle: 10
+    port: 6379
+    timeout: 3000

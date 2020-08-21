@@ -1,13 +1,12 @@
-package com.nextjuly.distributedlock.distributedlock.aspect;
+package com.nextjuly.distributedlock.aspect;
 
-import com.runlion.middleground.approval.web.util.redis.DistributedLock;
-import com.runlion.middleground.approval.web.util.redis.RedisDistributedLock;
-import com.runlion.middleground.common.annotation.DataLock;
-import com.runlion.middleground.common.annotation.RedisLock;
-import com.runlion.middleground.common.exception.BaseException;
-import com.runlion.middleground.common.utils.ReflectUtils;
+import com.nextjuly.distributedlock.service.DistributedLock;
+import com.nextjuly.distributedlock.service.impl.RedisDistributedLock;
+import com.nextjuly.distributedlock.annotation.DataLock;
+import com.nextjuly.distributedlock.annotation.RedisLock;
+import com.nextjuly.distributedlock.exception.BaseException;
+import com.nextjuly.distributedlock.utils.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,6 +14,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
@@ -39,7 +39,7 @@ public class DistributedLockAspect {
 	@Resource
 	private RedisDistributedLock distributedLock;
 
-	@Pointcut("@annotation(com.runlion.middleground.common.annotation.RedisLock)")
+	@Pointcut("@annotation(com.nextjuly.distributedlock.annotation.RedisLock)")
 	private void lockPoint(){}
 	
 	@Around("lockPoint()")
@@ -69,7 +69,7 @@ public class DistributedLockAspect {
 				//组装key值
 				this.assemblyKey(key, object);
 			}
-			if (StringUtils.isBlank(key)) {
+			if (StringUtils.isEmpty(key)) {
 				return null;
 			}
 		}

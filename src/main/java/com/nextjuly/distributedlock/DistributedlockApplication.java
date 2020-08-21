@@ -1,4 +1,4 @@
-package com.nextjuly.distributedlock.distributedlock;
+package com.nextjuly.distributedlock;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
